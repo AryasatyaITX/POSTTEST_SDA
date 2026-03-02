@@ -13,7 +13,7 @@ int main() {
     for (int i = 0; i<5; i++) {
         cout << "Mahasiswa ke-" << i+1 << ":\n";
         cout << "Nama: ";
-        cin >> mhs[i].nama;
+        getline(cin, mhs[i].nama);
         cout << "NIM: ";
         cin >> mhs[i].nim;
         cout << "IPK: ";
