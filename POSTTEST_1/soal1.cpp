@@ -45,18 +45,19 @@ int findmin(int A[], int n) {
 int main() {
     int Bilfibonacci[8] = {1, 1, 2, 3, 5, 8, 13, 21};
     int minimum;
-    int index;
+    int indexmin;
 
     minimum = findmin(Bilfibonacci, 8);
 
     for (int i = 0; i < 8; i++) {
         if (Bilfibonacci[i] == minimum) {
-            index = i;
+            indexmin = i;
             break;
         }
     }
-
-    cout << "Nilai minimum : " << minimum << " ditemukan pada indeks ke-" << index << endl;
+    cout << "=============================================\n";
+    cout << " Nilai minimum : " << minimum << " ditemukan pada indeks ke-" << indexmin << endl;
+    cout << "=============================================\n";
 
     return 0;
 }

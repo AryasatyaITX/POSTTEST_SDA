@@ -13,7 +13,7 @@ int main() {
     for (int i = 0; i<5; i++) {
         cout << "Mahasiswa ke-" << i+1 << ":\n";
         cout << "Nama: ";
-        getline(cin, mhs[i].nama);
+        cin >> mhs[i].nama;
         cout << "NIM: ";
         cin >> mhs[i].nim;
         cout << "IPK: ";
@@ -28,9 +28,11 @@ int main() {
     }
 
     cout << "\nMahasiswa dengan IPK tertinggi :\n ";
+    cout << "==============================\n";
     cout << "Nama : "<< mhs[ipkTertinggi].nama << endl;
     cout << "NIM : " << mhs[ipkTertinggi].nim << endl;
     cout << "IPK : " << mhs[ipkTertinggi].ipk << endl;
+    cout << "==============================\n";
 
     return  0;
 }

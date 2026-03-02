@@ -8,15 +8,19 @@ void pertukaran(int* a, int* b) {
 }
 
 int main() {
-    int nilai_a;
+    int nilaia;
     cout << "Masukkan nilai pertama: ";
-    cin >> nilai_a;
-    int nilai_b;
+    cin >> nilaia;
+    int nilaib;
     cout << "Masukkan nilai kedua: ";
-    cin >> nilai_b;
+    cin >> nilaib;
+    
+    cout << "====================================\n";
+    cout << "Nilai sebelum pertukaran: " << nilaia << " dan " << nilaib << endl;
+    cout << "===================================\n";
+    pertukaran(&nilaia, &nilaib);
 
-    cout << "Nilai sebelum pertukaran: " << nilai_a << " dan " << nilai_b << endl;
-    pertukaran(&nilai_a, &nilai_b);
-       
-    cout << "Nilai setelah pertukaran: " << nilai_a << " dan " << nilai_b << endl;
+    cout << "===================================\n";
+    cout << "Nilai sesudah pertukaran: " << nilaia << " dan " << nilaib << endl;
+    cout << "===================================\n";
 }
