@@ -17,5 +17,6 @@ int main() {
 
     cout << "Nilai sebelum pertukaran: " << nilai_a << " dan " << nilai_b << endl;
     pertukaran(&nilai_a, &nilai_b);
+       
     cout << "Nilai setelah pertukaran: " << nilai_a << " dan " << nilai_b << endl;
 }

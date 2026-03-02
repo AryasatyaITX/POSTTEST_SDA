@@ -22,14 +22,14 @@ int main() {
 
     cout << "Array Sebelum Di-reverse :\n";
     for (int i = 0; i < n; i++) {
-        cout << "Nilai: " << angkaprima[i] << " dengan alamat: " << (angkaprima + i) << endl;
+        cout << "Nilai: " << angkaprima[i] << " | alamat: " << (angkaprima + i) << endl;
     }
 
     reverseArray(angkaprima, n);
 
     cout << "Array Setelah Di-reverse :\n";
     for (int i = 0; i < n; i++) {
-        cout << "Nilai: " << angkaprima[i]  << " dengan alamat: " << (angkaprima + i) << endl;
+        cout << "Nilai: " << angkaprima[i]  << " | alamat: " << (angkaprima + i) << endl;
     }
     
     return 0;
