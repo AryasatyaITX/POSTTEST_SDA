@@ -28,7 +28,7 @@ int main() {
     }
 
     cout << "\nMahasiswa dengan IPK tertinggi :\n ";
-    cout << "Nama : " << mhs[ipkTertinggi].nama << endl;
+    cout << "Nama : "<< mhs[ipkTertinggi].nama << endl;
     cout << "NIM : " << mhs[ipkTertinggi].nim << endl;
     cout << "IPK : " << mhs[ipkTertinggi].ipk << endl;
 
