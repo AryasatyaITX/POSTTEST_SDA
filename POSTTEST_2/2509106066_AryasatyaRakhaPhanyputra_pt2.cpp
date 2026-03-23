@@ -163,7 +163,6 @@ void linearSearchRute(Kereta* arr, int n) {
     cout << "================================================================================================\n";
 
     for (int i = 0; i < n; i++) {
-        // Pointer aritmatika (syarat 3)
         if ((arr + i)->asal == cariAsal && (arr + i)->tujuan == cariTujuan) {
             Kereta* ptr = (arr + i);
             cout << "| " << setw(4) << ptr->noKA << " | ";
@@ -191,25 +190,26 @@ void sortNomor(Kereta *arr, int n) {//untuk jumpsearch agar data terurut dulu
 }
 
 int jumpSearch(Kereta *arr, int n, int target) {
-    int step = (int)sqrt((double)n); // ukuran satu lompatan
+    int step = (int)sqrt((double)n);
     int prev = 0;
 
-    while (arr[step - 1] < target) {
+    while (step < n && (arr + step - 1)->noKA < target) {
         prev = step;
         step += (int)sqrt((double)n);
         if (prev >= n)
-        return -1; // sudah melewati semua elemen
+            return -1;
     }
-// === FASE 2: LINEAR SEARCH dalam blok ===
-// Cari satu per satu dari prev sampai ujung blok
+
     int batas = step;
-    if (batas > n) batas = n; // jangan lewati akhir array
+    if (batas > n) batas = n;
+
     while (prev < batas) {
-        if (arr[prev] == target)
-            return prev; // KETEMU
+        if ((arr + prev)->noKA == target)
+            return prev;
         prev++;
     }
-    return -1; // TIDAK KETEMU
+
+    return -1;
 }
 
 
@@ -229,7 +229,7 @@ void selectionSortHarga(Kereta* arr, int n) {
             tukarkereta(arr + i, arr + minIdx);
         }
     }
-    cout << "\nData berhasil diurutkan berdasarkan Harga Tiket (Termurah)!" << endl;
+    cout << "Data berhasil diurutkan berdasarkan Harga Tiket (Termurah)!" << endl;
     tampiljadwal(arr, n);
 }
 
@@ -245,21 +245,42 @@ int main() {
         cout << "4. Cari Kereta Berdasarkan Nomor KA (Jump Search)" << endl;
         cout << "5. Urutkan Berdasarkan Nama Kereta A-Z (Merge Sort)" << endl;
         cout << "6. Urutkan Berdasarkan Harga Tiket Termurah (Selection Sort)" << endl;
-        cout << "0. Keluar" << endl;
+        cout << "7. Keluar" << endl;
         cout << "============================================" << endl;
         cout << "Pilih menu: "; cin >> pilihan;
 
         switch (pilihan) {
-            case 1: tampiljadwal(daftarKereta, Jumlahkereta); break;
-            case 2: tambahKereta(daftarKereta, Jumlahkereta); break;
-            case 3: linearSearchRute(daftarKereta, Jumlahkereta); break;
-            case 4: jumpSearch(daftarKereta, Jumlahkereta); break;
-            case 5: tampilmerge(daftarKereta, Jumlahkereta); break;
-            case 6: selectionSortHarga(daftarKereta, Jumlahkereta); break;
-            case 0: cout << "Terima kasih! Program selesai." << endl; break;
+            case 1: tampiljadwal(daftarKereta, Jumlahkereta); 
+            break;
+            case 2: tambahKereta(daftarKereta, Jumlahkereta);
+            break;
+            case 3: linearSearchRute(daftarKereta, Jumlahkereta); 
+            break;
+            case 4: {
+                int cari;
+                cout << "Masukkan Nomor Kereta Api(KA) yang dicari: ";
+                cin >> cari;
+                sortNomor(daftarKereta, Jumlahkereta); 
+                int hasil = jumpSearch(daftarKereta, Jumlahkereta, cari);
+                if (hasil != -1) {
+                    cout << "Nomor kereta(KA) ditemukan:\n";
+                    tampiljadwal(daftarKereta + hasil, 1);
+                } else {
+                    cout << "Nomor kereta(KA) tidak ditemukan.\n";
+                }
+                break;
+            }
+            case 5: tampilmerge(daftarKereta, Jumlahkereta); 
+            break;
+            case 6: selectionSortHarga(daftarKereta, Jumlahkereta); 
+            break;
+            case 7: cout << "================================";
+                    cout << "|Terima kasih! Program selesai.|";
+                    cout << "================================"<<endl;
+            break;
             default: cout << "Pilihan tidak valid!" << endl;
         }
-    } while (pilihan != 0);
+    } while (pilihan != 7);
 
     return 0;
 }
