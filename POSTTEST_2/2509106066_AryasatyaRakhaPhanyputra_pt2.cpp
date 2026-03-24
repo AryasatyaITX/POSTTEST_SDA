@@ -13,11 +13,18 @@ struct Kereta {
     int hargatiket;
 };
 
-#define MAX_DATA 30
+#define MAX_DATA 50
 Kereta daftarKereta[MAX_DATA] = {
-    {101, "Argo Bromo", "Surabaya", "Jakarta", "06:00", 350000}   
+    {101, "Argo Bromo", "Surabaya", "Jakarta", "06:00", 350000},
+    {102, "Argo Lawu", "Jakarta", "Solo", "08:30", 250000},
+    {103, "Sancaka", "Surabaya", "Yogyakarta", "07:00", 235000},
+    {104, "Bengawan", "Solo", "Jakarta", "14:30", 74000},
+    {105, "Lodaya", "Bandung", "Solo", "06:30", 217000}
 };
-int Jumlahkereta = 1;
+int Jumlahkereta = 5;
+void header(string judul){
+    cout << judul <<endl;
+}
 
 void tukarkereta(Kereta* a, Kereta* b) {
     Kereta temp = *a;
@@ -25,12 +32,13 @@ void tukarkereta(Kereta* a, Kereta* b) {
     *b = temp;
 }
 
-void tampiljadwal(Kereta* arr, int n) {
+void readjadwal(Kereta* arr, int n) {
     if (n == 0) {
         cout << "Belum ada data kereta." << endl;
         return;
     }
-    cout << "" << "JADWAL SEMUA KERETA" << "\n";
+    cout <<"================="<<endl;
+    header("| JADWAL KERETA |");
     cout << "================================================================================================\n";
     cout << "| " << setw(4) << "no KA" << " | ";
     cout << setw(18) << "Nama Kereta" << " | ";
@@ -58,9 +66,9 @@ void tambahKereta(Kereta* arr, int &n) {
         cout << "Kapasitas data untuk Kereta sudah penuh!" << endl;
         return;
     }
-    cout << "===============================";
-    cout << "|   TAMBAH DATA KERETA BARU   |";
-    cout << "==============================="<<endl;
+    cout << "===============================\n";
+    cout << "|   TAMBAH DATA KERETA BARU   |\n";
+    cout << "===============================\n"<<endl;
     cout << "  Nomor KA  : "; 
     while(!(cin >> (arr + n)->noKA)) {
         cin.clear();
@@ -85,16 +93,15 @@ void tambahKereta(Kereta* arr, int &n) {
 void merge(Kereta* arr, int left, int mid, int right) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
-// Membuat array sementara untuk menampung struct
+
     Kereta* L = new Kereta[n1];
     Kereta* R = new Kereta[n2];
-// Menyalin data ke array sementara menggunakan pointer akses
+
     for (int i = 0; i < n1; i++)
         *(L + i) = *(arr + left + i);
     for (int j = 0; j < n2; j++)
         *(R + j) = *(arr + mid + 1 + j);
     int i = 0, j = 0, k = left;
-// Proses penggabungan berdasarkan property 'harga'
     while (i < n1 && j < n2) {
         if ((L + i)->namaKereta <= (R + j)->namaKereta) {
             *(arr + k) = *(L + i);
@@ -132,27 +139,29 @@ void tampilmerge(Kereta* arr, int n) {
         return;
     }
     cout << "Data sebelum diurutkan (berdasarkan nama Kereta)" << endl;
+    readjadwal(arr, n);
     mergeSort(arr, 0, n - 1);
     cout << "Data berhasil diurutkan berdasarkan Nama Kereta!" << endl;
-    tampiljadwal(arr, n);
+    readjadwal(arr, n);
 }
 
-void linearSearchRute(Kereta* arr, int n) {
+void linearSearch(Kereta* arr, int n) {
     if (n == 0) {
         cout << "Belum ada data kereta." << endl;
         return;
     }
     string cariAsal, cariTujuan;
     cin.ignore();
-    cout << "=====================================";
-    cout << "|   CARI KERETA BERDASARKAN RUTE    |";
-    cout << "====================================="<<endl;
+    cout << "=====================================\n";
+    cout << "|   CARI KERETA BERDASARKAN RUTE    |\n";
+    cout << "=====================================\n"<<endl;
     cout << "Masukkan Asal   : "; 
     getline(cin, cariAsal);
     cout << "Masukkan Tujuan : "; 
     getline(cin, cariTujuan);
     bool ditemukan = false;
-    cout << "HASIL PENCARIAN RUTE: " << cariAsal << " -> " << cariTujuan << "\n";
+    header("| HASIL PENCARIAN RUTE |");
+    cout << cariAsal << " -> " << cariTujuan << endl;
     cout << "================================================================================================\n";
     cout << "| " << setw(4) << "KA" << " | ";
     cout << setw(18) << "Nama Kereta" << " | ";
@@ -161,9 +170,10 @@ void linearSearchRute(Kereta* arr, int n) {
     cout << setw(8) << "Jam" << " | ";
     cout << setw(12) << "Harga Tiket" << " |\n";
     cout << "================================================================================================\n";
-
-    for (int i = 0; i < n; i++) {
-        if ((arr + i)->asal == cariAsal && (arr + i)->tujuan == cariTujuan) {
+    //Iterasi Linear seacrh
+    for (int i = 0; i < n; i++) { // loop memeriksa setiap elemen/data satu per satu, mulai dari awal(indek 0) hingga akhir(n-1).
+        if ((arr + i)->asal == cariAsal && (arr + i)->tujuan == cariTujuan) { //pada setiap iterasi ke - i, program akan membandingkan asal dan tujuan data yang dicari atau dari input yg diberikan
+           // Jika setelah dibandingkan dan data yang dicari cocok dengan input atau target maka akan menampilkan pada itearsi ini 
             Kereta* ptr = (arr + i);
             cout << "| " << setw(4) << ptr->noKA << " | ";
             cout << setw(18) << ptr->namaKereta << " | ";
@@ -174,12 +184,12 @@ void linearSearchRute(Kereta* arr, int n) {
             ditemukan = true;
         }
     }
-    if (!ditemukan) {
+    if (!ditemukan) { // jika setelah loop seluruh iterasi bila tidak ada yang cocok dengan input yg diberikan
         cout << "| Tidak ditemukan kereta dengan rute tersebut.                                                |" << endl;
     }
     cout << "================================================================================================\n";
 }
-void sortNomor(Kereta *arr, int n) {//untuk jumpsearch agar data terurut dulu
+void sortNomor(Kereta *arr, int n) { //untuk jumpsearch agar data terurut dulu 
     for(int i = 0; i < n-1; i++) {
         for(int j = i+1; j < n; j++) {
             if((arr+i)->noKA > (arr+j)->noKA) {
@@ -229,54 +239,76 @@ void selectionSortHarga(Kereta* arr, int n) {
             tukarkereta(arr + i, arr + minIdx);
         }
     }
+    cout << "============================================================\n";
     cout << "Data berhasil diurutkan berdasarkan Harga Tiket (Termurah)!" << endl;
-    tampiljadwal(arr, n);
+    readjadwal(arr, n);
 }
 
 int main() {
     int pilihan;
     do {
-        cout << "\n============================================" << endl;
-        cout << "  SISTEM MANAJEMEN KEBERANGKATAN KERETA API" << endl;
-        cout << "============================================" << endl;
-        cout << "1. Tampil Jadwal Semua Kereta" << endl;
-        cout << "2. Tambah Data Kereta Baru" << endl;
-        cout << "3. Cari Kereta Berdasarkan Rute (Linear Search)" << endl;
-        cout << "4. Cari Kereta Berdasarkan Nomor KA (Jump Search)" << endl;
-        cout << "5. Urutkan Berdasarkan Nama Kereta A-Z (Merge Sort)" << endl;
-        cout << "6. Urutkan Berdasarkan Harga Tiket Termurah (Selection Sort)" << endl;
-        cout << "7. Keluar" << endl;
-        cout << "============================================" << endl;
+        cout << "===============================================================" << endl;
+        cout << "|         SISTEM MANAJEMEN KEBERANGKATAN KERETA API           |" << endl;
+        cout << "===============================================================" << endl;
+        cout << "|1. Tampil Jadwal Semua Kereta                                |" << endl;
+        cout << "|2. Tambah Data Kereta Baru                                   |" << endl;
+        cout << "|3. Cari Kereta Berdasarkan Rute (Linear Search)              |" << endl;
+        cout << "|4. Cari Kereta Berdasarkan Nomor KA (Jump Search)            |" << endl;
+        cout << "|5. Urutkan Berdasarkan Nama Kereta A-Z (Merge Sort)          |" << endl;
+        cout << "|6. Urutkan Berdasarkan Harga Tiket Termurah (Selection Sort) |" << endl;
+        cout << "|7. Keluar                                                    |" << endl;
+        cout << "===============================================================" << endl;
         cout << "Pilih menu: "; cin >> pilihan;
 
         switch (pilihan) {
-            case 1: tampiljadwal(daftarKereta, Jumlahkereta); 
+            case 1:
+                  system("cls");
+                  readjadwal(daftarKereta, Jumlahkereta); 
             break;
-            case 2: tambahKereta(daftarKereta, Jumlahkereta);
+            case 2:
+                   system("cls");
+                   tambahKereta(daftarKereta, Jumlahkereta);
             break;
-            case 3: linearSearchRute(daftarKereta, Jumlahkereta); 
+            case 3:
+                   system("cls");
+                   linearSearch(daftarKereta, Jumlahkereta); 
             break;
             case 4: {
+                system("cls");
                 int cari;
                 cout << "Masukkan Nomor Kereta Api(KA) yang dicari: ";
-                cin >> cari;
+                while(!(cin >> cari)) {
+                    cin.clear();
+                    cin.ignore(10000, '\n');
+                    cout << "Input salah! Masukkan angka: ";
+                }
                 sortNomor(daftarKereta, Jumlahkereta); 
                 int hasil = jumpSearch(daftarKereta, Jumlahkereta, cari);
                 if (hasil != -1) {
                     cout << "Nomor kereta(KA) ditemukan:\n";
-                    tampiljadwal(daftarKereta + hasil, 1);
+                    readjadwal(daftarKereta + hasil, 1);
                 } else {
-                    cout << "Nomor kereta(KA) tidak ditemukan.\n";
+                    cout << "=======================================\n";
+                    cout << "|Nomor kereta Api(KA) tidak ditemukan.|\n";
+                    cout << "======================================="<<endl;           
                 }
                 break;
             }
-            case 5: tampilmerge(daftarKereta, Jumlahkereta); 
+            case 5:
+                   system("cls");
+                   tampilmerge(daftarKereta, Jumlahkereta); 
             break;
-            case 6: selectionSortHarga(daftarKereta, Jumlahkereta); 
+            case 6: 
+                   system("cls");
+                   selectionSortHarga(daftarKereta, Jumlahkereta); 
             break;
-            case 7: cout << "================================";
-                    cout << "|Terima kasih! Program selesai.|";
-                    cout << "================================"<<endl;
+            case 7:
+                    system("cls"); 
+                    cout << "==================================\n";
+                    cout << "|         Terima kasih!          |\n";
+                    cout << "| Telah Menggunakan Layanan Kami |\n";
+                    cout << "|          Sampai Jumpa!         |\n";
+                    cout << "=================================="<<endl;
             break;
             default: cout << "Pilihan tidak valid!" << endl;
         }
