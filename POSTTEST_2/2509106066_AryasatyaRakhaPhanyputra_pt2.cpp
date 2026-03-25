@@ -166,7 +166,7 @@ void linearSearch(Kereta* arr, int n) {
     cout << "Masukkan Tujuan : "; 
     getline(cin, cariTujuan);
     //Iterasi Linear seacrhI
-    // loop memeriksa setiap elemen/data satu per satu, mulai dari awal(indek 0) hingga akhir(n-1).
+    // loop memeriksa setiap elemen/data satu per satu, mulai dari awal(indeks 0) hingga akhir.
     for (int i = 0; i < n; i++) { 
         //pada setiap iterasi ke - i, program akan membandingkan asal dan tujuan data yang dicari atau dari input yg diberikan
         cout << "Iterasi ke-" << i+1; 
