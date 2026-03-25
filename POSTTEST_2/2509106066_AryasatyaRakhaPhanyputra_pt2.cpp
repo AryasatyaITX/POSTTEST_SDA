@@ -355,6 +355,8 @@ int main() {
                     cout << "=================================="<<endl;
             break;
             default: cout << "Pilihan tidak valid!" << endl;
+                    system("pause");
+                    system("cls"); 
         }
     } while (pilihan != 7);
 
