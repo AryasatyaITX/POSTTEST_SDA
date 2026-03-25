@@ -68,24 +68,40 @@ void tambahKereta(Kereta* arr, int &n) {
     }
     cout << "===============================\n";
     cout << "|   TAMBAH DATA KERETA BARU   |\n";
-    cout << "===============================\n"<<endl;
-    cout << "  Nomor KA  : "; 
-    while(!(cin >> (arr + n)->noKA)) {
+    cout << "===============================\n" << endl;
+    cout << "  Nomor KA  : ";
+    while (!(cin >> (arr + n)->noKA)) {
         cin.clear();
         cin.ignore(10000, '\n');
         cout << "Input salah! Masukkan angka: ";
     }
+    for (int i = 0; i < n; i++) {
+        if ((arr + i)->noKA == (arr + n)->noKA) {
+            cout << "Nomor KA sudah ada!\n";
+            return;
+        }
+    }
     cin.ignore();
-    cout << "Nama Kereta     : "; 
+    cout << "Nama Kereta     : ";
     getline(cin, (arr + n)->namaKereta);
-    cout << "Asal            : "; 
+    cout << "Asal            : ";
     getline(cin, (arr + n)->asal);
-    cout << "Tujuan          : "; 
+    cout << "Tujuan          : ";
     getline(cin, (arr + n)->tujuan);
-    cout << "Jam Berangkat   : "; 
+    cout << "Jam Berangkat   : ";
     getline(cin, (arr + n)->jamBerangkat);
-    cout << "Harga Tiket     : "; 
+    if ((arr + n)->jamBerangkat == "") {
+        cout << "Jam tidak boleh kosong!\n";
+        return;
+    }
+    cout << "Harga Tiket     : ";
     cin >> (arr + n)->hargatiket;
+    if (cin.fail() || (arr + n)->hargatiket < 0) {
+        cout << "Harga tidak valid!\n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+        return;
+    }
     n++;
     cout << "Data kereta berhasil ditambahkan!" << endl;
 }
