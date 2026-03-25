@@ -332,7 +332,6 @@ int main() {
                     cout << "Belum ada data kereta." << endl;
                     break;
                 }
-                system("cls");
                 cout << "Data sebelum diurutkan (berdasarkan nama Kereta)" << endl;
                 readjadwal(daftarKereta, Jumlahkereta);
                 mergeSort(daftarKereta, 0, Jumlahkereta - 1);
