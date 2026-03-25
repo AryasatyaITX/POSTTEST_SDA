@@ -155,7 +155,9 @@ void linearSearch(Kereta* arr, int n) {
         return;
     }
     string cariAsal, cariTujuan;
-    cin.ignore();
+    bool ditemukan = false;
+    int posisi = -1;
+    cin.ignore(1000, '\n');
     cout << "=====================================\n";
     cout << "|   CARI KERETA BERDASARKAN RUTE    |\n";
     cout << "=====================================\n"<<endl;
@@ -163,8 +165,24 @@ void linearSearch(Kereta* arr, int n) {
     getline(cin, cariAsal);
     cout << "Masukkan Tujuan : "; 
     getline(cin, cariTujuan);
-    bool ditemukan = false;
-    header("| HASIL PENCARIAN RUTE |");
+    //Iterasi Linear seacrhI
+    // loop memeriksa setiap elemen/data satu per satu, mulai dari awal(indek 0) hingga akhir(n-1).
+    for (int i = 0; i < n; i++) { 
+        //pada setiap iterasi ke - i, program akan membandingkan asal dan tujuan data yang dicari atau dari input yg diberikan
+        cout << "Iterasi ke-" << i+1; 
+        cout << " : " << (arr + i)->asal; 
+        cout << " -> " << (arr + i)->tujuan << endl;
+        if ((arr + i)->asal == cariAsal && (arr + i)->tujuan == cariTujuan) {
+            ditemukan = true;
+            posisi = i + 1;
+            tukarkereta(arr, arr + i);
+        }
+    }
+    // Jika setelah dibandingkan dan data yang dicari cocok dengan input atau target maka akan menampilkan pada itearsi ini 
+    if(ditemukan) {
+        cout << "Data ditemukan pada iterasi ke - " << posisi << endl;
+    }
+    header("\n| HASIL PENCARIAN RUTE |");
     cout << cariAsal << " -> " << cariTujuan << endl;
     cout << "================================================================================================\n";
     cout << "| " << setw(4) << "KA" << " | ";
@@ -174,10 +192,8 @@ void linearSearch(Kereta* arr, int n) {
     cout << setw(8) << "Jam" << " | ";
     cout << setw(12) << "Harga Tiket" << " |\n";
     cout << "================================================================================================\n";
-    //Iterasi Linear seacrh
-    for (int i = 0; i < n; i++) { // loop memeriksa setiap elemen/data satu per satu, mulai dari awal(indek 0) hingga akhir(n-1).
-        if ((arr + i)->asal == cariAsal && (arr + i)->tujuan == cariTujuan) { //pada setiap iterasi ke - i, program akan membandingkan asal dan tujuan data yang dicari atau dari input yg diberikan
-           // Jika setelah dibandingkan dan data yang dicari cocok dengan input atau target maka akan menampilkan pada itearsi ini 
+    for (int i = 0; i < n; i++) {
+        if ((arr + i)->asal == cariAsal && (arr + i)->tujuan == cariTujuan) {
             Kereta* ptr = (arr + i);
             cout << "| " << setw(4) << ptr->noKA << " | ";
             cout << setw(18) << ptr->namaKereta << " | ";
@@ -185,13 +201,13 @@ void linearSearch(Kereta* arr, int n) {
             cout << setw(15) << ptr->tujuan << " | ";
             cout << setw(8) << ptr->jamBerangkat << " | ";
             cout << "Rp" << setw(10) << ptr->hargatiket << " |" << endl;
-            ditemukan = true;
         }
     }
-    // jika setelah loop membandingkan target seluruh iterasi bila tidak ada yang cocok dengan input yg diberikan,maka tampilkan :
+    // jika setelah loop membandingkan semua data dan target seluruh iterasi bila tidak ada yang cocok dengan input yg diberikan,maka tampilkan :
     if (!ditemukan) { 
-        cout << "| Tidak ditemukan kereta dengan rute tersebut.                                                |" << endl;
+        cout << "| Tidak ditemukan kereta dengan rute tersebut. |\n";
     }
+
     cout << "================================================================================================\n";
 }
 void sortNomor(Kereta *arr, int n) { //untuk jumpsearch agar data terurut dulu 
@@ -291,6 +307,7 @@ int main() {
                 int hasil = jumpSearch(daftarKereta, Jumlahkereta, cari);
                 if (hasil != -1) {
                     cout << "Nomor kereta(KA) ditemukan:\n";
+                    tukarkereta(daftarKereta, daftarKereta + hasil);
                     readjadwal(daftarKereta + hasil, 1);
                 } else {
                     cout << "=======================================\n";
