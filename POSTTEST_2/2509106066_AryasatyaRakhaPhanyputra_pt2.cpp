@@ -284,15 +284,21 @@ int main() {
         switch (pilihan) {
             case 1:
                   system("cls");
-                  readjadwal(daftarKereta, Jumlahkereta); 
+                  readjadwal(daftarKereta, Jumlahkereta);
+                  system("pause");
+                  system("cls");
             break;
             case 2:
                    system("cls");
                    tambahKereta(daftarKereta, Jumlahkereta);
+                   system("pause");
+                   system("cls");
             break;
             case 3:
                    system("cls");
-                   linearSearch(daftarKereta, Jumlahkereta); 
+                   linearSearch(daftarKereta, Jumlahkereta);
+                   system("pause");
+                   system("cls"); 
             break;
             case 4: {
                 system("cls");
@@ -309,10 +315,14 @@ int main() {
                     cout << "Nomor kereta(KA) ditemukan:\n";
                     tukarkereta(daftarKereta, daftarKereta + hasil);
                     readjadwal(daftarKereta + hasil, 1);
+                    system("pause");
+                    system("cls");
                 } else {
                     cout << "=======================================\n";
                     cout << "|Nomor kereta Api(KA) tidak ditemukan.|\n";
-                    cout << "======================================="<<endl;           
+                    cout << "======================================="<<endl;  
+                    system("pause");
+                    system("cls");         
                 }
                 break;
             }
@@ -322,15 +332,20 @@ int main() {
                     cout << "Belum ada data kereta." << endl;
                     break;
                 }
+                system("cls");
                 cout << "Data sebelum diurutkan (berdasarkan nama Kereta)" << endl;
                 readjadwal(daftarKereta, Jumlahkereta);
                 mergeSort(daftarKereta, 0, Jumlahkereta - 1);
                 cout << "Data berhasil diurutkan berdasarkan Nama Kereta!" << endl;
                 readjadwal(daftarKereta, Jumlahkereta);
+                system("pause");
+                system("cls");
                 break;
             case 6: 
                    system("cls");
-                   selectionSortHarga(daftarKereta, Jumlahkereta); 
+                   selectionSortHarga(daftarKereta, Jumlahkereta);
+                   system("pause");
+                   system("cls"); 
             break;
             case 7:
                     system("cls"); 
