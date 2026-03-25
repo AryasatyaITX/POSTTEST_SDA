@@ -149,18 +149,6 @@ void mergeSort(Kereta* arr, int left, int right) {
     }
 }
 
-void tampilmerge(Kereta* arr, int n) {
-    if (n == 0) {
-        cout << "Belum ada data kereta." << endl;
-        return;
-    }
-    cout << "Data sebelum diurutkan (berdasarkan nama Kereta)" << endl;
-    readjadwal(arr, n);
-    mergeSort(arr, 0, n - 1);
-    cout << "Data berhasil diurutkan berdasarkan Nama Kereta!" << endl;
-    readjadwal(arr, n);
-}
-
 void linearSearch(Kereta* arr, int n) {
     if (n == 0) {
         cout << "Belum ada data kereta." << endl;
@@ -200,7 +188,8 @@ void linearSearch(Kereta* arr, int n) {
             ditemukan = true;
         }
     }
-    if (!ditemukan) { // jika setelah loop seluruh iterasi bila tidak ada yang cocok dengan input yg diberikan
+    // jika setelah loop membandingkan target seluruh iterasi bila tidak ada yang cocok dengan input yg diberikan,maka tampilkan :
+    if (!ditemukan) { 
         cout << "| Tidak ditemukan kereta dengan rute tersebut.                                                |" << endl;
     }
     cout << "================================================================================================\n";
@@ -311,9 +300,17 @@ int main() {
                 break;
             }
             case 5:
-                   system("cls");
-                   tampilmerge(daftarKereta, Jumlahkereta); 
-            break;
+                system("cls");
+                if (Jumlahkereta == 0) {
+                    cout << "Belum ada data kereta." << endl;
+                    break;
+                }
+                cout << "Data sebelum diurutkan (berdasarkan nama Kereta)" << endl;
+                readjadwal(daftarKereta, Jumlahkereta);
+                mergeSort(daftarKereta, 0, Jumlahkereta - 1);
+                cout << "Data berhasil diurutkan berdasarkan Nama Kereta!" << endl;
+                readjadwal(daftarKereta, Jumlahkereta);
+                break;
             case 6: 
                    system("cls");
                    selectionSortHarga(daftarKereta, Jumlahkereta); 
