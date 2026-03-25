@@ -156,7 +156,7 @@ void linearSearch(Kereta* arr, int n) {
     }
     string cariAsal, cariTujuan;
     bool ditemukan = false;
-    int posisi = -1;
+    int posisi;
     cin.ignore(1000, '\n');
     cout << "=====================================\n";
     cout << "|   CARI KERETA BERDASARKAN RUTE    |\n";
